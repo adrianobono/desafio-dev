@@ -22,10 +22,59 @@ const TITLE = styled.div`
   border-right: 1px solid green;
 `;
 
+const STACK = styled.div`
+  display: flex !important;
+  flex-direction: column;
+`;
+
+const ITEMLIST = styled.div`
+  padding: 0.5em;
+  margin: 0.5em;
+  background: #eee;
+  margin-top: 15px;
+  border: none;
+  border-radius: 3px;
+  width: 80vw;
+  text-align: left;
+`;
+
+const ITEMLISTB = styled.div`
+  padding: 0.5em;
+  margin: 0.5em;
+  background: #eee;
+  margin-top: 15px;
+  border: none;
+  border-radius: 3px;
+  text-align: left;
+  width: 80vw;
+`;
+
+const ITEMLISTC = styled.div`
+  padding: 0.5em;
+  margin: 0.5em;
+  background: #E2F3DA;
+  margin-top: 15px;
+  border: none;
+  border-radius: 3px;
+  text-align: left;
+  width: 80vw;
+`;
+
 export default function Uploadfile() {
   const [dados, setDados] = useState([]);
   let loja: string = "";
   let total = 0;
+  const actions = [
+    "Débito",
+    "Boleto",
+    "Financiamento",
+    "Crédito",
+    "Recebimento Empréstimo",
+    "Vendas",
+    " Recebimento TED	",
+    "Recebimento DOC	",
+    "Aluguel	Saída",
+  ];
 
   return (
     <div className="flex">
@@ -66,7 +115,6 @@ export default function Uploadfile() {
                           return response.json();
                         })
                         .then((dadosb: any) => {
-                          console.log(dadosb);
                           setDados(dadosb);
                         });
                     }
@@ -82,23 +130,40 @@ export default function Uploadfile() {
         dados.length > 0 &&
         dados.map((items: any) => {
           let temp: any;
-          
+          let tempLen: any;
           total = 0;
           if (loja !== items.loja) {
             loja = items.loja;
-            temp =  dados
-            .filter((item: any ) => item.loja === loja)
-           dados
-              .filter((item: any ) => item.loja === loja)
-              .map((filterData: any, indice:number) => {
-               
-                filterData.tipo !== 2 && 
+            tempLen = dados.filter((item: any) => item.loja === loja);
+            temp = dados
+              .filter((item: any) => item.loja === loja)
+              .map((filterData: any, indice: number) => {
+                filterData.tipo !== 2 &&
                 filterData.tipo !== 3 &&
-                filterData.tipo !== 9 
-                ?
-                 total += filterData.valor :  total -= filterData.valor ;
-                console.log(indice,'....',temp);
-                return <div className="flex justify-content">{filterData.loja} - Saldo: {total.toFixed(2)}</div>;
+                filterData.tipo !== 9
+                  ? (total += filterData.valor)
+                  : (total -= filterData.valor);
+
+                if (indice === tempLen.length - 1)
+                  return (
+                    <STACK>
+                      <ITEMLISTB>
+                        {filterData.loja} - OPERAÇÃO:{" "}
+                        {actions[filterData.tipo - 1]} - Valor:{" "}
+                        {filterData.valor}
+                      </ITEMLISTB>
+                      <ITEMLISTC>
+                        {filterData.loja} - Saldo: R$ {total.toFixed(2)}
+                      </ITEMLISTC>
+                    </STACK>
+                  );
+                else
+                  return (
+                    <ITEMLIST>
+                      {filterData.loja} - OPERAÇÃO:{" "}
+                      {actions[filterData.tipo - 1]} - Valor: {filterData.valor}
+                    </ITEMLIST>
+                  );
               });
           }
           return <div>{temp}</div>;
