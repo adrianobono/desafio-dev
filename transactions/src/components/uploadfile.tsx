@@ -82,10 +82,13 @@ export default function Uploadfile() {
         dados.length > 0 &&
         dados.map((items: any) => {
           let temp: any;
+          
           total = 0;
           if (loja !== items.loja) {
             loja = items.loja;
-           temp =  dados
+            temp =  dados
+            .filter((item: any ) => item.loja === loja)
+           dados
               .filter((item: any ) => item.loja === loja)
               .map((filterData: any, indice:number) => {
                
@@ -95,7 +98,7 @@ export default function Uploadfile() {
                 ?
                  total += filterData.valor :  total -= filterData.valor ;
                 console.log(indice,'....',temp);
-                return <div>{filterData.loja} - Saldo: {total.toFixed(2)}</div>;
+                return <div className="flex justify-content">{filterData.loja} - Saldo: {total.toFixed(2)}</div>;
               });
           }
           return <div>{temp}</div>;
