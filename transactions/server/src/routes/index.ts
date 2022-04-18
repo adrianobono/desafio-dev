@@ -1,8 +1,9 @@
 import {Router} from 'express';
 const router = Router();
 
-import {inputData } from '../controllers/index';
+import {inputData, getData } from '../controllers/index';
 
-router.post('/data', inputData);
+router.post('/postdata', inputData);
+router.get('/getdata', getData);
 
 export default router;

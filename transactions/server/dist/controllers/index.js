@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.inputData = void 0;
+exports.getData = exports.inputData = void 0;
 const database_1 = require("../database");
 const format = require('pg-format');
 const { v4: uuidv4 } = require('uuid');
@@ -43,3 +43,15 @@ const inputData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({ message: "ok" });
 });
 exports.inputData = inputData;
+const getData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    database_1.client.connect();
+    const response = yield database_1.client.query('SELECT * FROM transactions ORDER BY loja ASC', [], (err, result) => {
+        console.log(err);
+        console.log(result);
+        if (result) {
+            console.log(result);
+            return res.status(200).json(result.rows);
+        }
+    });
+});
+exports.getData = getData;
