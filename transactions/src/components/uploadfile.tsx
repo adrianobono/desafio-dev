@@ -52,7 +52,18 @@ const ITEMLISTB = styled.div`
 const ITEMLISTC = styled.div`
   padding: 0.5em;
   margin: 0.5em;
-  background: #E2F3DA;
+  background: #e2f3da;
+  margin-top: 15px;
+  border: none;
+  border-radius: 3px;
+  text-align: left;
+  width: 80vw;
+`;
+
+const NEGATIVE = styled.div`
+  padding: 0.5em;
+  margin: 0.5em;
+  background: #feb4ba;
   margin-top: 15px;
   border: none;
   border-radius: 3px;
@@ -152,9 +163,14 @@ export default function Uploadfile() {
                         {actions[filterData.tipo - 1]} - Valor:{" "}
                         {filterData.valor}
                       </ITEMLISTB>
-                      <ITEMLISTC>
+                      {total > 0 ?
+                      (<ITEMLISTC>
                         {filterData.loja} - Saldo: R$ {total.toFixed(2)}
-                      </ITEMLISTC>
+                      </ITEMLISTC>) :
+                       (<NEGATIVE>
+                        {filterData.loja} - Saldo: R$ {total.toFixed(2)}
+                      </NEGATIVE>)
+                      }
                     </STACK>
                   );
                 else
