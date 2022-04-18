@@ -148,7 +148,7 @@ export default function Uploadfile() {
                   return (
                     <STACK>
                       <ITEMLISTB>
-                        {filterData.loja} - OPERAÇÃO:{" "}
+                        {filterData.loja} - Operação:{" "}
                         {actions[filterData.tipo - 1]} - Valor:{" "}
                         {filterData.valor}
                       </ITEMLISTB>
@@ -160,7 +160,7 @@ export default function Uploadfile() {
                 else
                   return (
                     <ITEMLIST>
-                      {filterData.loja} - OPERAÇÃO:{" "}
+                      {filterData.loja} - Operação:{" "}
                       {actions[filterData.tipo - 1]} - Valor: {filterData.valor}
                     </ITEMLIST>
                   );
