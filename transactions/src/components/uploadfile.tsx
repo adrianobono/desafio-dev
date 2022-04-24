@@ -138,7 +138,7 @@ export default function Uploadfile() {
       </form>
 
       {dados &&
-        dados.length > 0 &&
+        dados.length > 0 && 
         dados.map((items: any) => {
           let temp: any;
           let tempLen: any;
